@@ -1,0 +1,5 @@
+name: SMPProtect
+main: me.kevsal.minecraft.smpprotect.SMPProtect
+version: 1.0-SNAPSHOT
+author: Kevinjss1/Kevinsal03
+api-version: 1.14
