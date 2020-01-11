@@ -9,6 +9,7 @@ import org.bukkit.event.server.ServerListPingEvent;
 import java.net.InetAddress;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.Objects;
 
 public class EventServerListPing implements Listener {
 
@@ -33,12 +34,10 @@ public class EventServerListPing implements Listener {
     }
 
     private void obfuscateServerInfo(ServerListPingEvent e) {
-        //TODO: Make these configurable
-
         //set to default mc max players
-        e.setMaxPlayers(20);
+        e.setMaxPlayers(plugin.getConfig().getInt("obfuscation-options.max-players"));
         //set to default MC MOTD
-        e.setMotd("A Minecraft Server");
+        e.setMotd(ChatColor.translateAlternateColorCodes('&', Objects.requireNonNull((plugin.getConfig().getString("obfuscation-options.motd"))) + "\n"));
         //set the server icon to be null (not sure if this works)
         e.setServerIcon(null);
         //remove all players from the online players iterator

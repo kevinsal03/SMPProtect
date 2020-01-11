@@ -52,11 +52,23 @@ public class SMPProtect extends JavaPlugin {
             try {
                 InetAddress x = InetAddress.getByName(ipString);
                 trustedIPs.add(x);
-                System.out.println(ipString);
             } catch (UnknownHostException e) {
                 e.printStackTrace();
                 getLogger().warning("An invalid IP was found in the config... skipping!");
             }
+        }
+    }
+
+    public void addNewIP(InetAddress ip) {
+        if(!getTrustedIPs().contains(ip)) {
+            //add the new ip
+            getConfig().getStringList("trusted-ips").add(String.valueOf(ip));
+            //save the config
+            saveConfig();
+            //reload the config from storage to memory
+            reloadConfig();
+            //reparse all IPs so they are being checked for and ignore invalid ones
+            parseIPs();
         }
     }
 }
