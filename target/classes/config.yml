@@ -1,7 +1,0 @@
-# SMP Protect Configuration -- Do not change this file while the server is running! Changes will not be saved!
-config-version: 1
-obfuscation-options:
-  max-players: 20
-  motd: "A Minecraft Server"
-trusted-ips:
-  - 127.0.0.1
