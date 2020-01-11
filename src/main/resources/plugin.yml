@@ -1,4 +1,4 @@
-name: CN-Hardcore
+name: SMPProtect
 main: me.kevsal.minecraft.smpprotect.SMPProtect
 version: ${project.version}
 author: Kevinjss1/Kevinsal03
