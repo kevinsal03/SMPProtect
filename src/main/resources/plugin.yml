@@ -1,0 +1,5 @@
+name: CN-Hardcore
+main: me.kevsal.minecraft.smpprotect.SMPProtect
+version: ${project.version}
+author: Kevinjss1/Kevinsal03
+api-version: 1.14
