@@ -1,5 +1,7 @@
 # SMP Protect Configuration -- Do not change this file while the server is running! Changes will not be saved!
 config-version: 1
+# Automatically add whitelisted player's IP address to the trusted list on join
+auto-add: true
 obfuscation-options:
   max-players: 20
   motd: "A Minecraft Server"

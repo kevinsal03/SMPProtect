@@ -32,6 +32,7 @@ public class SMPProtect extends JavaPlugin {
 
         //register events
         Bukkit.getServer().getPluginManager().registerEvents(new EventServerListPing(this), this);
+        Bukkit.getServer().getPluginManager().registerEvents(new EventPlayerJoin(this), this);
     }
 
     @Override
@@ -62,7 +63,9 @@ public class SMPProtect extends JavaPlugin {
     public void addNewIP(InetAddress ip) {
         if(!getTrustedIPs().contains(ip)) {
             //add the new ip
-            getConfig().getStringList("trusted-ips").add(String.valueOf(ip));
+            List<String> list = getConfig().getStringList("trusted-ips");
+            list.add(ip.toString().substring(1));
+            getConfig().set("trusted-ips", list);
             //save the config
             saveConfig();
             //reload the config from storage to memory
