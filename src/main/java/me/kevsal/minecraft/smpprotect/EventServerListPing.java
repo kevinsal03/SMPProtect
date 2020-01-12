@@ -37,7 +37,7 @@ public class EventServerListPing implements Listener {
         //set to default mc max players
         e.setMaxPlayers(plugin.getConfig().getInt("obfuscation-options.max-players"));
         //set to default MC MOTD
-        e.setMotd(ChatColor.translateAlternateColorCodes('&', Objects.requireNonNull((plugin.getConfig().getString("obfuscation-options.motd"))) + "\n"));
+        e.setMotd(ChatColor.translateAlternateColorCodes('&', Objects.requireNonNull((plugin.getConfig().getString("obfuscation-options.motd")))));
         //set the server icon to be null (not sure if this works)
         e.setServerIcon(null);
         //remove all players from the online players iterator
