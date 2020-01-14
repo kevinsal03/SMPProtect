@@ -11,10 +11,20 @@ import java.util.List;
 public class SMPProtect extends JavaPlugin {
 
     public final int MainConfigurationVersion = 1;
-    private ArrayList<InetAddress> trustedIPs = new ArrayList<InetAddress>(); //FUCK I was stuck with an NPE for like 20 mins because I didn't realize I forgot to instantiate the ArrayList
+    public boolean Paper; //public boolean to say if running Paper or not
+    private ArrayList<InetAddress> trustedIPs = new ArrayList<InetAddress>();
+
 
     @Override
     public void onEnable() {
+        //check if server is running PaperSpigot
+        if (!Bukkit.getServer().getVersion().contains("Paper")) {
+            getLogger().warning("This plugin is written from the Paper API. We recommend using Paper!");
+            getLogger().warning("Find out why at: https://whypaper.emc.gs/");
+            Paper = true;
+        } else {
+            Paper = false;
+        }
         //plugin enable
         getLogger().info("SMP Protect has been enabled.");
         //save the default Main config
@@ -23,7 +33,7 @@ public class SMPProtect extends JavaPlugin {
         int mainConfigVersion = getConfig().getInt("config-version");
         //check if main config version is current
         if (mainConfigVersion != MainConfigurationVersion) {
-            getLogger().warning("Outdated main configuration file! Please delete and allow the plugin to recreate it, then copy values");
+            getLogger().warning("Outdated main configuration file! Please delete and allow the plugin to recreate it, then copy values!");
             this.setEnabled(false);
         }
 
@@ -31,6 +41,7 @@ public class SMPProtect extends JavaPlugin {
         this.parseIPs();
 
         //register events
+        //TODO: Add support for the better version of the ServerListPingEvent provided by Paper
         Bukkit.getServer().getPluginManager().registerEvents(new EventServerListPing(this), this);
         Bukkit.getServer().getPluginManager().registerEvents(new EventPlayerJoin(this), this);
     }
