@@ -2,4 +2,33 @@ name: SMPProtect
 main: me.kevsal.minecraft.smpprotect.SMPProtect
 version: ${project.version}
 author: Kevinjss1/Kevinsal03
+description: A Bukkit/Spigot/Paper plugin designed to protect private SMP servers from IP enumeration attacks.
 api-version: 1.14
+
+commands:
+  trust-ip:
+    usage: /<command> <ip>
+    description: Add a new IP to the trusted database.
+    aliases: tIP
+  # TODO: To be implemented later, considered less important.
+  #list-trusted:
+  #  usage: /<command> [page]
+  #  description: List all trusted IP addresses.
+  #  aliases: list-ip, list-ips, ltip
+  untrust-ip:
+    usage: /<command> <ip>
+    description: Remove an IP from the trusted database.
+    aliases: utIP
+
+permissions:
+  smpprotect.add:
+    default: op
+    description: Add IP
+  smpprotect.remove:
+    default: op
+    description: Remove IP
+  smpprotect.*:
+    children:
+      - smpprotect.add
+      - smpprotect.remove
+    default: op

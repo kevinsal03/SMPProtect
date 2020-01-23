@@ -1,9 +1,32 @@
-# SMP Protect Configuration -- Do not change this file while the server is running! Changes will not be saved!
-config-version: 1
+############################################################
+# SMP Protect Configuration                                #
+# !!Do not change this file while the server is running!!  #
+# Changes may not be saved!                                #
+############################################################
+
+# !! DO NOT CHANGE THIS VALUE !!
+config-version: 2
+
 # Automatically add whitelisted player's IP address to the trusted list on join
 auto-add: true
+# Tell users their IP address has been automatically trusted
+notify-auto-add: false
+# Write all unknown pings to log
+log-pings: false
+
+# Change what is written by the plugin for a ServerListPing event from an unknown source
 obfuscation-options:
-  max-players: 20
-  motd: "A Minecraft Server"
-trusted-ips:
-  - 127.0.0.1
+  max-players: 20 #The number of max players reported
+  motd: "A Minecraft Server" #The MOTD Reported (Supports color codes with '&')
+
+# Customize the plugin's messages.
+messages:
+  prefix: "&8[&2SMP&aProtect&8]&r "
+  no-permission: "&cAccess denied."
+  auto-added-ip: "&aYou logged in from a new IP address, it has been automatically trusted."
+
+# Let us collect basic data on your server
+# (https://bstats.org/plugin/bukkit/SMPProtect/)
+allow-metrics: true
+
+# End of file -- Data storage has been moved to an H2 database.

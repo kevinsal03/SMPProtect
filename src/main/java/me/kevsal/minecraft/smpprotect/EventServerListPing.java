@@ -27,7 +27,9 @@ public class EventServerListPing implements Listener {
         ArrayList<InetAddress> trustedIPs = plugin.getTrustedIPs();
         //check if ip is known, if not obfuscate server info
         if (!trustedIPs.contains(pingerIP)) {
-            plugin.getLogger().info("An unknown IP (" + pingerIP + ") has pinged the server!");
+            if(plugin.getConfig().getBoolean("log-pings")) {
+                plugin.getLogger().info("An unknown IP (" + pingerIP + ") has pinged the server!");
+            }
             //obfuscate
             obfuscateServerInfo(e);
         }
