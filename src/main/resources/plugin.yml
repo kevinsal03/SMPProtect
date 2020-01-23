@@ -9,16 +9,14 @@ commands:
   trust-ip:
     usage: /<command> <ip>
     description: Add a new IP to the trusted database.
-    aliases: tIP
-  # TODO: To be implemented later, considered less important.
-  #list-trusted:
-  #  usage: /<command> [page]
-  #  description: List all trusted IP addresses.
-  #  aliases: list-ip, list-ips, ltip
+    aliases:
+      - tip
   untrust-ip:
     usage: /<command> <ip>
     description: Remove an IP from the trusted database.
-    aliases: utIP
+    aliases:
+      - utip
+  # TODO: Add list command
 
 permissions:
   smpprotect.add:

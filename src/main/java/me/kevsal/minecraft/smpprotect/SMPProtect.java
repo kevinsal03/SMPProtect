@@ -37,8 +37,7 @@ public class SMPProtect extends JavaPlugin {
 
         //save the default Main config
         saveDefaultConfig();
-        //save the default database
-        //this.saveResource("smp-protect.mv.db", false);
+        /* Note: Server no longer needs to copy a default DB because the plugin now creates it from scratch */
 
         int mainConfigVersion = getConfig().getInt("config-version");
         //check if main config version is current
@@ -60,7 +59,7 @@ public class SMPProtect extends JavaPlugin {
 
         //register commands
         Objects.requireNonNull(this.getCommand("trust-ip")).setExecutor(new CommandAddIP(this));
-        // TODO: Objects.requireNonNull(this.getCommand("untrust-ip")).setExecutor(new CommandRemoveIP(this));
+        Objects.requireNonNull(this.getCommand("untrust-ip")).setExecutor(new CommandRemoveIP(this));
         // TODO: Objects.requireNonNull(this.getCommand("list-trusted")).setExecutor(new CommandListIP(this));
 
         //plugin enabled
@@ -104,7 +103,6 @@ public class SMPProtect extends JavaPlugin {
             resultSize = result.getRow();
             result.beforeFirst(); //go back to first
 
-            System.out.println(resultSize);
             //get each IP from the database and add to the ArrayList
             if (resultSize != 0) {
                 for (int i = 1; i <= resultSize; i++) {
@@ -154,6 +152,30 @@ public class SMPProtect extends JavaPlugin {
         }
     }
 
+    public boolean removeIP(InetAddress ip) {
+
+        String ipString = ip.toString().substring(1);
+        //sql code to be ran
+        String sql = "DELETE FROM TRUSTEDIP WHERE IP='" + ipString + "';";
+
+        //try running the sql
+        try {
+            //create a new sql statement using the database
+            Statement smt = getDatabase().createStatement();
+            //execute the sql above
+            smt.executeUpdate(sql);;
+            smt.close();
+            parseIPs();
+            //succeeded, return true
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            getLogger().warning("A SQL Error has occurred!");
+            //failed: return false.
+            return false;
+        }
+    }
+
     public void initDatabase() {
         try {
             Class.forName("org.h2.Driver");
@@ -164,6 +186,7 @@ public class SMPProtect extends JavaPlugin {
 
             //if empty add thing
             getLogger().info("Database initialized successfully.");
+            smt.close();
         } catch (Exception e) {
            e.printStackTrace();
            getLogger().warning("An error occurred during database initialization. Plugin disabled.");
